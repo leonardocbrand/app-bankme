@@ -1,0 +1,10 @@
+import { Module } from '@nestjs/common';
+import { PayablesService } from './payables.service';
+import { PayablesController } from './payables.controller';
+import { AssignorsModule } from '../assignors/assignors.module';
+@Module({
+  imports: [AssignorsModule],
+  controllers: [PayablesController],
+  providers: [PayablesService],
+})
+export class PayablesModule {}
