@@ -4,7 +4,7 @@ import { CreatePayableDto } from '../schemas/createPayableSchema';
 import { UpdatePayableDto } from '../schemas/updatePayableSchema';
 
 @Injectable()
-export class PayablesService {
+export class PayableService {
   constructor(private prisma: PrismaService) {}
 
   async getAll() {

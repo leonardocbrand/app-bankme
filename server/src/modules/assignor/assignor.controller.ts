@@ -11,7 +11,7 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
-import { AssignorsService } from './assignors.service';
+import { AssignorService } from './assignor.service';
 import {
   CreateAssignorDto,
   createAssignorSchema,
@@ -23,19 +23,19 @@ import {
 } from '../schemas/updateAssignorSchema';
 
 @Controller('integrations/assignor')
-export class AssignorsController {
-  constructor(private readonly assignorsService: AssignorsService) {}
+export class AssignorController {
+  constructor(private readonly assignorService: AssignorService) {}
 
   @Get()
   async findAll() {
-    const assignors = await this.assignorsService.getAll();
+    const assignors = await this.assignorService.getAll();
 
     return assignors;
   }
 
   @Get(':id')
   async findById(@Param('id') id: string) {
-    const assignor = await this.assignorsService.getById(id);
+    const assignor = await this.assignorService.getById(id);
 
     if (!assignor) {
       throw new NotFoundException('Assignor not found');
@@ -48,7 +48,7 @@ export class AssignorsController {
   @UsePipes(new ZodValidationPipe(createAssignorSchema))
   async create(@Body() data: CreateAssignorDto) {
     const validateAssignor =
-      await this.assignorsService.getByDocumentOrEmail(data);
+      await this.assignorService.getByDocumentOrEmail(data);
 
     if (validateAssignor) {
       throw new BadRequestException(
@@ -56,7 +56,7 @@ export class AssignorsController {
       );
     }
 
-    const assignor = await this.assignorsService.create(data);
+    const assignor = await this.assignorService.create(data);
 
     return assignor;
   }
@@ -64,7 +64,7 @@ export class AssignorsController {
   @Patch(':id')
   @UsePipes(new ZodValidationPipe(updateAssignorSchema))
   async update(@Param('id') id: string, @Body() data: UpdateAssignorDto) {
-    const assignorExists = await this.assignorsService.getById(id);
+    const assignorExists = await this.assignorService.getById(id);
 
     if (!assignorExists) {
       throw new BadRequestException('Assignor not found');
@@ -72,7 +72,7 @@ export class AssignorsController {
 
     if (data.document || data.email) {
       const validateAssignor =
-        await this.assignorsService.getByDocumentOrEmail(data);
+        await this.assignorService.getByDocumentOrEmail(data);
 
       if (validateAssignor) {
         throw new BadRequestException(
@@ -81,7 +81,7 @@ export class AssignorsController {
       }
     }
 
-    const updatedAssignor = await this.assignorsService.update(id, data);
+    const updatedAssignor = await this.assignorService.update(id, data);
 
     return updatedAssignor;
   }
@@ -89,12 +89,12 @@ export class AssignorsController {
   @Delete(':id')
   @HttpCode(204)
   async delete(@Param('id') id: string) {
-    const validateAssignor = await this.assignorsService.getById(id);
+    const validateAssignor = await this.assignorService.getById(id);
 
     if (!validateAssignor) {
       throw new NotFoundException('Assignor not found');
     }
 
-    await this.assignorsService.delete(id);
+    await this.assignorService.delete(id);
   }
 }

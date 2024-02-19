@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule as PrismaGlobalModule } from './modules/prisma/prisma.module';
-import { PayablesModule } from './modules/payables/payables.module';
-import { AssignorsModule } from './modules/assignors/assignors.module';
+import { PayableModule } from './modules/payable/payable.module';
+import { AssignorModule } from './modules/assignor/assignor.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     PrismaGlobalModule,
-    PayablesModule,
-    AssignorsModule,
+    PayableModule,
+    AssignorModule,
   ],
   controllers: [],
   providers: [],

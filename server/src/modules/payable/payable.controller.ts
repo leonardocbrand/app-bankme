@@ -11,36 +11,36 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
-import { PayablesService } from './payables.service';
+import { PayableService } from './payable.service';
 import { Payable as PayableModel } from '@prisma/client';
 import {
   CreatePayableDto,
   createPayableSchema,
 } from '../schemas/createPayableSchema';
 import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
-import { AssignorsService } from '../assignors/assignors.service';
+import { AssignorService } from '../assignor/assignor.service';
 import {
   UpdatePayableDto,
   updatePayableSchema,
 } from '../schemas/updatePayableSchema';
 
 @Controller('integrations/payable')
-export class PayablesController {
+export class PayableController {
   constructor(
-    private readonly payablesService: PayablesService,
-    private readonly assignorsService: AssignorsService,
+    private readonly payableService: PayableService,
+    private readonly assignorService: AssignorService,
   ) {}
 
   @Get()
   async getAll() {
-    const payables = await this.payablesService.getAll();
+    const payables = await this.payableService.getAll();
 
     return payables;
   }
 
   @Get(':id')
   async getById(@Param('id') id: string) {
-    const payable = await this.payablesService.getById(id);
+    const payable = await this.payableService.getById(id);
 
     if (!payable) {
       throw new NotFoundException('Payable not found');
@@ -52,13 +52,13 @@ export class PayablesController {
   @Post()
   @UsePipes(new ZodValidationPipe(createPayableSchema))
   async create(@Body() data: CreatePayableDto): Promise<PayableModel> {
-    const assignorExists = this.assignorsService.getById(data.assignorId);
+    const assignorExists = this.assignorService.getById(data.assignorId);
 
     if (!assignorExists) {
       throw new BadRequestException('Assignor not found');
     }
 
-    const payable = await this.payablesService.create(data as any);
+    const payable = await this.payableService.create(data as any);
 
     return payable;
   }
@@ -66,21 +66,21 @@ export class PayablesController {
   @Patch(':id')
   @UsePipes(new ZodValidationPipe(updatePayableSchema))
   async update(@Param('id') id: string, @Body() data: UpdatePayableDto) {
-    const payableExists = await this.payablesService.getById(id);
+    const payableExists = await this.payableService.getById(id);
 
     if (!payableExists) {
       throw new NotFoundException('Payable not found');
     }
 
     if (data.assignorId) {
-      const assignorExists = this.assignorsService.getById(data.assignorId);
+      const assignorExists = this.assignorService.getById(data.assignorId);
 
       if (!assignorExists) {
         throw new BadRequestException('Assignor not found');
       }
     }
 
-    const updatedPayable = await this.payablesService.update(id, data);
+    const updatedPayable = await this.payableService.update(id, data);
 
     return updatedPayable;
   }
@@ -88,12 +88,12 @@ export class PayablesController {
   @Delete(':id')
   @HttpCode(204)
   async delete(@Param('id') id: string) {
-    const payableExists = await this.payablesService.getById(id);
+    const payableExists = await this.payableService.getById(id);
 
     if (!payableExists) {
       throw new NotFoundException('Payable not found');
     }
 
-    await this.payablesService.delete(id);
+    await this.payableService.delete(id);
   }
 }

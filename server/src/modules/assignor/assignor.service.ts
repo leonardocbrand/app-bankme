@@ -4,7 +4,7 @@ import { CreateAssignorDto } from '../schemas/createAssignorSchema';
 import { UpdateAssignorDto } from '../schemas/updateAssignorSchema';
 
 @Injectable()
-export class AssignorsService {
+export class AssignorService {
   constructor(private prisma: PrismaService) {}
 
   async getAll() {
