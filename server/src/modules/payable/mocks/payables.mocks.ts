@@ -11,6 +11,19 @@ const payable: Payable = {
   deletedAt: null,
 };
 
+const createPayableDto = {
+  value: payable.value,
+  assignorId: payable.assignorId,
+  emissionDate: String(payable.emissionDate),
+};
+
+const updatePayableDto = {
+  value: faker.number.float(),
+  assignorId: faker.string.uuid(),
+};
+
 export const payablesMocks = {
   payable,
+  createPayableDto,
+  updatePayableDto,
 };
