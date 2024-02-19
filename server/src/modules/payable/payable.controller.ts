@@ -13,16 +13,17 @@ import {
 } from '@nestjs/common';
 import { PayableService } from './payable.service';
 import { Payable as PayableModel } from '@prisma/client';
-import {
-  CreatePayableDto,
-  createPayableSchema,
-} from '../schemas/createPayableSchema';
+
 import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
 import { AssignorService } from '../assignor/assignor.service';
 import {
-  UpdatePayableDto,
+  createPayableSchema,
+  CreatePayableDto,
+} from './schemas/createPayableSchema';
+import {
   updatePayableSchema,
-} from '../schemas/updatePayableSchema';
+  UpdatePayableDto,
+} from './schemas/updatePayableSchema';
 
 @Controller('integrations/payable')
 export class PayableController {

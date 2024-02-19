@@ -15,12 +15,12 @@ import { AssignorService } from './assignor.service';
 import {
   CreateAssignorDto,
   createAssignorSchema,
-} from '../schemas/createAssignorSchema';
+} from './schemas/createAssignorSchema';
 import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
 import {
   UpdateAssignorDto,
   updateAssignorSchema,
-} from '../schemas/updateAssignorSchema';
+} from './schemas/updateAssignorSchema';
 
 @Controller('integrations/assignor')
 export class AssignorController {

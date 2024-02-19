@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateAssignorDto } from '../schemas/createAssignorSchema';
-import { UpdateAssignorDto } from '../schemas/updateAssignorSchema';
+import { CreateAssignorDto } from './schemas/createAssignorSchema';
+import { UpdateAssignorDto } from './schemas/updateAssignorSchema';
 
 @Injectable()
 export class AssignorService {
