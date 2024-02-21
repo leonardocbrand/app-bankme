@@ -22,8 +22,19 @@ const updatePayableDto = {
   assignorId: faker.string.uuid(),
 };
 
+const updatedPayable = {
+  id: payable.id,
+  value: updatePayableDto.value,
+  assignorId: updatePayableDto.assignorId,
+  emissionDate: payable.emissionDate,
+  createdAt: payable.createdAt,
+  updatedAt: payable.updatedAt,
+  deletedAt: null,
+};
+
 export const payablesMocks = {
   payable,
   createPayableDto,
   updatePayableDto,
+  updatedPayable,
 };
