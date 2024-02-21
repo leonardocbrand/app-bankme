@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -12,9 +11,8 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { PayableService } from './payable.service';
-import { Payable as PayableModel } from '@prisma/client';
 
-import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
+import { ZodValidationPipe } from '../../pipes/zodValidation.pipe';
 import { AssignorService } from '../assignor/assignor.service';
 import {
   createPayableSchema,
@@ -52,14 +50,17 @@ export class PayableController {
 
   @Post()
   @UsePipes(new ZodValidationPipe(createPayableSchema))
-  async create(@Body() data: CreatePayableDto): Promise<PayableModel> {
-    const assignorExists = this.assignorService.getById(data.assignorId);
+  async create(@Body() data: CreatePayableDto) {
+    const assignorExists = await this.assignorService.getById(data.assignorId);
 
     if (!assignorExists) {
-      throw new BadRequestException('Assignor not found');
+      throw new NotFoundException('Assignor not found');
     }
 
-    const payable = await this.payableService.create(data as any);
+    const payable = await this.payableService.create({
+      ...data,
+      emissionDate: new Date(data.emissionDate).toISOString(),
+    });
 
     return payable;
   }
@@ -74,10 +75,12 @@ export class PayableController {
     }
 
     if (data.assignorId) {
-      const assignorExists = this.assignorService.getById(data.assignorId);
+      const assignorExists = await this.assignorService.getById(
+        data.assignorId,
+      );
 
       if (!assignorExists) {
-        throw new BadRequestException('Assignor not found');
+        throw new NotFoundException('Assignor not found');
       }
     }
 
