@@ -14,10 +14,6 @@ export class AssignorService {
       },
     });
 
-    if (!assignors) {
-      return [];
-    }
-
     return assignors;
   }
 

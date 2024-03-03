@@ -14,10 +14,6 @@ export class PayableService {
       },
     });
 
-    if (!payables) {
-      return [];
-    }
-
     return payables;
   }
 
