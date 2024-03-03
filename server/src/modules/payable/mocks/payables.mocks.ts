@@ -29,7 +29,7 @@ const updatedPayable = {
   emissionDate: payable.emissionDate,
   createdAt: payable.createdAt,
   updatedAt: payable.updatedAt,
-  deletedAt: null,
+  deletedAt: payable.deletedAt,
 };
 
 export const payablesMocks = {
