@@ -2,8 +2,10 @@
 CREATE TABLE "Payable" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "value" REAL NOT NULL,
-    "emission_date" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "emission_date" DATETIME NOT NULL,
     "assignor_id" TEXT NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deleted_at" DATETIME,
     CONSTRAINT "Payable_assignor_id_fkey" FOREIGN KEY ("assignor_id") REFERENCES "Assignor" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -15,6 +17,8 @@ CREATE TABLE "Assignor" (
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deleted_at" DATETIME
 );
 
