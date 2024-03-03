@@ -16,7 +16,7 @@ import {
   CreateAssignorDto,
   createAssignorSchema,
 } from './schemas/createAssignorSchema';
-import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
+import { ZodValidationPipe } from '../../pipes/zodValidation.pipe';
 import {
   UpdateAssignorDto,
   updateAssignorSchema,
