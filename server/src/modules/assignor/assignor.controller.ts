@@ -67,7 +67,7 @@ export class AssignorController {
     const assignorExists = await this.assignorService.getById(id);
 
     if (!assignorExists) {
-      throw new BadRequestException('Assignor not found');
+      throw new NotFoundException('Assignor not found');
     }
 
     if (data.document || data.email) {

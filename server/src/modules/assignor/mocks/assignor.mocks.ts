@@ -22,6 +22,7 @@ const createAssignorDto = {
 const updateAssignorDto = {
   name: faker.person.fullName(),
   phone: faker.phone.number(),
+  document: faker.string.numeric(11),
 };
 
 const updatedAssignor = {
