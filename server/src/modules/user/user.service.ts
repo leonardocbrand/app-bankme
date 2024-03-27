@@ -16,7 +16,7 @@ export class UserService {
       },
     });
 
-    return user.login;
+    return user;
   }
 
   async getAll() {

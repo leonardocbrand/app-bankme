@@ -29,9 +29,9 @@ export class UserController {
       throw new BadRequestException('Login already registered');
     }
 
-    const user = this.userService.create(createUserDto);
+    const { id, login } = await this.userService.create(createUserDto);
 
-    return user;
+    return { id, login };
   }
 
   @Patch(':id')
