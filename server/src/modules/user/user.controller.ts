@@ -8,6 +8,7 @@ import {
   UsePipes,
   BadRequestException,
   NotFoundException,
+  Get,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, createUserSchema } from './schemas/create-user.dto';
@@ -17,6 +18,13 @@ import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Get()
+  async getAll() {
+    const users = await this.userService.getAll();
+
+    return users;
+  }
 
   @Post()
   @UsePipes(new ZodValidationPipe(createUserSchema))
