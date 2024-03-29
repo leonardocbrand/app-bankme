@@ -5,7 +5,6 @@ import { PayableModule } from './modules/payable/payable.module';
 import { AssignorModule } from './modules/assignor/assignor.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot(),

@@ -9,16 +9,19 @@ import {
   BadRequestException,
   NotFoundException,
   Get,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, createUserSchema } from './schemas/create-user.dto';
 import { UpdateUserDto, updateUserSchema } from './schemas/update-user.dto';
 import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getAll() {
     const users = await this.userService.getAll();
