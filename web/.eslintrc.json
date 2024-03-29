@@ -1,49 +1,25 @@
 {
-  "env": {
-      "browser": true,
-      "es2021": true,
-      "node": true,
-      "jest": true
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    }
-  },
-  "extends": [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:prettier/recommended"
-  ],
-  "overrides": [
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-  },
-  "plugins": [
-      "react",
-      "@typescript-eslint",
-      "react-hooks",
-      "eslint-plugin-import-helpers"
-  ],
+  "extends": "@trybe/eslint-config-frontend/typescript",
   "rules": {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "off",
-    "react-hooks/react-in-jsx-scope": "off",
-    "import-helpers/order-imports": [
-      "warn",
-      {
-          "newlinesBetween": "always",
-          "groups": [
-              "module",
-              "/^@shared/",
-              ["parent", "sibling", "index"]
-          ],
-          "alphabetize": { "order": "asc", "ignoreCase": true }
+    "no-alert": "off"
+  },
+  "overrides": [
+    {
+      "files": ["src/tests/**/*.js"],
+      "rules": {
+        "max-len": [
+          "error",
+          {
+            "code": 90,
+            "ignoreComments": true,
+            "ignoreUrls": true,
+            "ignoreRegExpLiterals": true,
+            "ignoreStrings": true
+          }
+        ],
+        "max-lines": ["off"],
+        "no-magic-numbers": ["off"]
       }
+    }
   ]
-  }
 }
