@@ -21,7 +21,6 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   async getAll() {
     const users = await this.userService.getAll();
