@@ -1,0 +1,21 @@
+version: '3.8'
+name: 'app-bankme'
+services:
+  server:
+    container_name: bankme-server
+    build: 
+      context: ./server
+      args:
+        DATABASE_URL: ${DATABASE_URL}
+    working_dir: /server
+    ports: 
+      - 3000:3000
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]
+      timeout: 30s
+      retries: 5
