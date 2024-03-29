@@ -15,7 +15,7 @@ import { UserService } from './user.service';
 import { CreateUserDto, createUserSchema } from './schemas/create-user.dto';
 import { UpdateUserDto, updateUserSchema } from './schemas/update-user.dto';
 import { ZodValidationPipe } from 'src/pipes/zodValidation.pipe';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { Public } from 'src/decorators/public.decorator';
 
 @Controller('user')
 export class UserController {
@@ -28,7 +28,8 @@ export class UserController {
     return users;
   }
 
-  @Post()
+  @Public()
+  @Post('/register')
   @UsePipes(new ZodValidationPipe(createUserSchema))
   async create(@Body() createUserDto: CreateUserDto) {
     const validateLogin = await this.userService.getByLogin(
