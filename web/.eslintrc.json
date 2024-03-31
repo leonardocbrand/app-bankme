@@ -3,6 +3,13 @@
   "rules": {
     "no-alert": "off"
   },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
+      }
+  }},
   "overrides": [
     {
       "files": ["src/tests/**/*.js"],
