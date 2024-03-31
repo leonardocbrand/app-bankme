@@ -9,7 +9,6 @@ import {
   BadRequestException,
   NotFoundException,
   Get,
-  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto, createUserSchema } from './schemas/create-user.dto';
@@ -37,7 +36,7 @@ export class UserController {
     );
 
     if (validateLogin) {
-      throw new BadRequestException('Login already registered');
+      throw new BadRequestException('Username already registered');
     }
 
     const { id, login } = await this.userService.create(createUserDto);
@@ -60,7 +59,7 @@ export class UserController {
       );
 
       if (validateLogin) {
-        throw new BadRequestException('Login already registered');
+        throw new BadRequestException('Username already registered');
       }
     }
 
